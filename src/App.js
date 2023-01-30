@@ -6,8 +6,8 @@ import Dashboard from "../src/pages/Dashboard";
 function App() {
   return (
     <div className="App">
-      <Login></Login>
-      {/* <Dashboard></Dashboard> */}
+      {/* <Login></Login> */}
+      <Dashboard></Dashboard>
       {/* <ForgotPassword></ForgotPassword> */}
     </div>
   );

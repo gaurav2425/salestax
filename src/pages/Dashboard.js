@@ -36,38 +36,40 @@ function Dashboard() {
   };
 
   return (
+    // <div>
+    //   <input
+    //     type="file"
+    //     name="file"
+    //     onChange={changeHandler}
+    //     accept=".csv"
+    //     style={{ display: "block", margin: "10px auto" }}
+    //   />
+    //   <br />
+    //   <br />
+
+    //   <table>
+    //     <thead>
+    //       <tr>
+    //         {tableRows.map((rows, index) => {
+    //           return <th key={index}>{rows}</th>;
+    //         })}
+    //       </tr>
+    //     </thead>
+    //     <tbody>
+    //       {values.map((value, index) => {
+    //         return (
+    //           <tr key={index}>
+    //             {value.map((val, i) => {
+    //               return <td key={i}>{val}</td>;
+    //             })}
+    //           </tr>
+    //         );
+    //       })}
+    //     </tbody>
+    //   </table>
+    // </div>
     <div>
-      {/* File Uploader */}
-      <input
-        type="file"
-        name="file"
-        onChange={changeHandler}
-        accept=".csv"
-        style={{ display: "block", margin: "10px auto" }}
-      />
-      <br />
-      <br />
-      {/* Table */}
-      <table>
-        <thead>
-          <tr>
-            {tableRows.map((rows, index) => {
-              return <th key={index}>{rows}</th>;
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {values.map((value, index) => {
-            return (
-              <tr key={index}>
-                {value.map((val, i) => {
-                  return <td key={i}>{val}</td>;
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <h1>I am a Dashboard</h1>
     </div>
   );
 }
