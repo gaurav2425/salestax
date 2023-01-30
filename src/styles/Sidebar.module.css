@@ -1,0 +1,38 @@
+.section{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+}
+.section li{
+    list-style: none;
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.home_icon{
+    font-size: 35px;
+}
+
+
+.recent_icon{
+    font-size: 35px;
+}
+
+.section:hover{
+    background-color: rgb(255, 255, 255);
+    /* padding: 10px; */
+    cursor: pointer;
+}
+
+.sidebar_container{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

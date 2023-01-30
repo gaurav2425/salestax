@@ -3,6 +3,7 @@ import Papa from "papaparse";
 import styles from "../../src/styles/Dashboard.module.css";
 import Sidebar from "../components/Sidebar";
 import Dashbar from "../components/Dashbar";
+import Navbar from "../components/Navbar";
 function Dashboard() {
   const [parsedData, setParsedData] = useState([]);
 
@@ -71,11 +72,16 @@ function Dashboard() {
     //   </table>
     // </div>
     <div className={styles.dashboard_main}>
-      <div className={styles.dashboard_sidebar}>
-        <Sidebar></Sidebar>
+      <div>
+        <Navbar></Navbar>
       </div>
-      <div className={styles.dashboard_dashbar}>
-        <Dashbar></Dashbar>
+      <div className={styles.dashboard_section2}>
+        <div className={styles.dashboard_sidebar}>
+          <Sidebar></Sidebar>
+        </div>
+        <div className={styles.dashboard_dashbar}>
+          <Dashbar></Dashbar>
+        </div>
       </div>
     </div>
   );
