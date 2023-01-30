@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Papa from "papaparse";
-
+import styles from "../../src/styles/Dashboard.module.css";
+import Sidebar from "../components/Sidebar";
+import Dashbar from "../components/Dashbar";
 function Dashboard() {
   const [parsedData, setParsedData] = useState([]);
 
@@ -68,8 +70,13 @@ function Dashboard() {
     //     </tbody>
     //   </table>
     // </div>
-    <div>
-      <h1>I am a Dashboard</h1>
+    <div className={styles.dashboard_main}>
+      <div className={styles.dashboard_sidebar}>
+        <Sidebar></Sidebar>
+      </div>
+      <div className={styles.dashboard_dashbar}>
+        <Dashbar></Dashbar>
+      </div>
     </div>
   );
 }

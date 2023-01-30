@@ -1,0 +1,16 @@
+.dashboard_main{
+    display: flex;
+    flex-direction: row;
+}
+.dashboard_sidebar{
+    flex: 0.15;
+    background-color: aqua;
+    min-width: 180px;
+    height: 100vh;
+}
+
+.dashboard_dashbar{
+    flex: 0.85;
+    background-color: rgb(255, 0, 64);
+    height: 100vh;
+}
