@@ -1,38 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 .section{
     display: flex;
     flex-direction: row;
     /* justify-content: center; */
     align-items: center;
     margin-top: 10px;
-    padding: 5px;
+    padding: 7px;
     padding-left: 20px;
     padding-right: 20px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+}
+
+.sidebar_menus{
+    /* background-color: rgb(252, 146, 7); */
+    justify-content: center;
+    /* align-items: center; */
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 }
 .section li{
     list-style: none;
-    font-size: 20px;
-    margin-left: 15px;
+    font-size: 17px;
+    margin-left: 20px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
 }
 
 .home_icon{
     font-size: 35px;
+    color: white;
 }
 
 
 .recent_icon{
     font-size: 35px;
+    color: white;
 }
 
 .section:hover{
-    background-color: rgb(255, 255, 255);
+    background-color: #640f6a;
     /* padding: 10px; */
     cursor: pointer;
 }
 
 .sidebar_container{
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+    /* align-items: center; */
     display: flex;
+    /* background-color: blueviolet; */
+    height: 100vh;
+   
     flex-direction: column;
+    border-top: 1px solid rgb(159, 154, 154);
+}
+
+.logout_menu{
+    margin-bottom: 10px;
 }

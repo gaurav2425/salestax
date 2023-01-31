@@ -5,16 +5,19 @@
 }
 .dashboard_sidebar{
     flex: 0.15;
-    background-color: rgb(80, 2, 43);
+    background-color: #4a154b;
     min-width: 180px;
-    height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 92vh;
     border-right: 1px solid rgb(203, 202, 202);
 }
 
 .dashboard_dashbar{
     flex: 0.85;
     background-color: rgb(250, 251, 251);
-    height: 100vh;
+    height: 100%;
 }
 
 .dashboard_section2{

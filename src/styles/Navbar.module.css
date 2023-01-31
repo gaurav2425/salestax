@@ -1,5 +1,45 @@
 .navbar_container{
-    height: 60px;
-    background-color: rgb(80, 2, 43);
+    height: 8vh;
+    background-color: #4a154b;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+   
+}
 
+.navbar_container_left{
+    color: white;
+}
+
+.navbar_container_left h1{
+   margin-left: 30px;
+   font-size: 25px;
+   font-family: 'Poppins', sans-serif;
+}
+
+.profile_container img{
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.input_container input{
+    padding: 7px;
+    font-size: 17px;
+    outline: none;
+    width: 450px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.notification_icon{
+    color: white;
+    margin-right: 20px;
+}
+.container_right{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
 }
