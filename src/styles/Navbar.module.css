@@ -1,6 +1,7 @@
 .navbar_container{
-    height: 8vh;
+    /* height: 8vh; */
     background-color: #4a154b;
+    height: 55px;
     flex-direction: row;
     justify-content: space-between;
     display: flex;
@@ -29,7 +30,9 @@
     font-size: 17px;
     outline: none;
     width: 450px;
+    border-radius: 10px;
     font-family: 'Poppins', sans-serif;
+    padding-left: 15px;
 }
 
 .notification_icon{

@@ -1,0 +1,17 @@
+.box_third1{
+    width: 450px;
+    height: 300px;
+    padding: 10px;
+    background: rgb(232, 232, 232);
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* background: firebrick; */
+    width: 100%;
+    flex-wrap: nowrap;
+}
+.box_third{
+    display: flex;
+    flex-direction: row;
+}

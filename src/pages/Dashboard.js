@@ -72,7 +72,7 @@ function Dashboard() {
     //   </table>
     // </div>
     <div className={styles.dashboard_main}>
-      <div>
+      <div className={styles.dashboard_navbar}>
         <Navbar></Navbar>
       </div>
       <div className={styles.dashboard_section2}>

@@ -18,7 +18,7 @@ function Navbar() {
           className={styles.notification_icon}
         ></NotificationsNoneOutlinedIcon>
         <div className={styles.profile_container}>
-          <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1tcsOlJgKH21rAH85atd6DHtLJh8-8v2wmuk4-HIp&s"></img>
         </div>
       </div>
     </div>
