@@ -26,24 +26,26 @@
     list-style: none;
     font-size: 17px;
     margin-left: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: 'Poppins', sans-serif;
 }
 
 .home_icon{
     font-size: 35px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 
 .recent_icon{
     font-size: 35px;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .section:hover{
-    background-color: #640f6a;
+    /* background-color: #640f6a; */
     /* padding: 10px; */
+    color: red;
+    
     cursor: pointer;
     
 }
@@ -57,7 +59,7 @@
     /* height: 100vh; */
    
     flex-direction: column;
-    border-top: 1px solid rgb(159, 154, 154);
+    border-top: 1px solid rgb(216, 216, 216);
 }
 
 .logout_menu{

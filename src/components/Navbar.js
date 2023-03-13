@@ -14,7 +14,7 @@ function Navbar() {
       <div className={styles.container_right}>
         <NotificationsNoneOutlinedIcon
           size={55}
-          style={{ width: 30, height: 30 }}
+          style={{ width: 30, height: 30, color: "#000000" }}
           className={styles.notification_icon}
         ></NotificationsNoneOutlinedIcon>
         <div className={styles.profile_container}>

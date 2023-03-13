@@ -11,15 +11,17 @@ function Sidebar() {
     <div className={styles.sidebar_container}>
       <div className={styles.sidebar_menus}>
         {/* <ul className={styles.sidebar_ul}> */}
-        <div className={styles.section}>
-          <HomeOutlinedIcon
-            style={{ width: 25, height: 25 }}
-            className={styles.home_icon}
-          ></HomeOutlinedIcon>
-          <li>Home</li>
-        </div>
+        <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <div className={styles.section}>
+            <HomeOutlinedIcon
+              style={{ width: 25, height: 25 }}
+              className={styles.home_icon}
+            ></HomeOutlinedIcon>
+            <li>Home</li>
+          </div>
+        </Link>
 
-        <Link to="/visual">
+        <Link to="/visual" style={{ textDecoration: "none" }}>
           <div className={styles.section}>
             <GraphicEqIcon
               size={25}

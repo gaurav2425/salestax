@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Papa from "papaparse";
+// import styles from "../../src/styles/Dashboard.module.css";
+import Sidebar from "../components/Sidebar";
+import styles from "../../src/styles/Visual.module.css";
+import Dashbar from "../components/Dashbar";
 import BarChart from "../Chart/BarChart";
 import LineChart from "../Chart/LineChart";
 import BubbleChart from "../Chart/BubbleChart";
-import { Doughnut } from "react-chartjs-2";
-
 import PieChart from "../Chart/PieChart";
+import Navbar from "../components/Navbar";
 import { UserData } from "../Data";
-import styles from "../styles/Visual.module.css";
+
 function Visual() {
   const [userData, setUserData] = useState({
     labels: UserData.map((data) => data.year),
@@ -28,22 +32,35 @@ function Visual() {
   });
 
   return (
-    <div>
-      <div className={styles.box_third}>
-        <div className={styles.box_third1}>
-          <BarChart chartData={userData} />
+    <div className={styles.dashboard_main}>
+      <div className={styles.dashboard_navbar}>
+        <Navbar></Navbar>
+      </div>
+      <div className={styles.dashboard_section2}>
+        <div className={styles.dashboard_sidebar}>
+          <Sidebar></Sidebar>
         </div>
-        <div className={styles.box_third1}>
-          <LineChart chartData={userData}></LineChart>
+        <div className={styles.dashboard_dashbar}>
+          <div className={styles.box_third}>
+            <div className={styles.box_third1}>
+              <BarChart chartData={userData} />
+            </div>
+            <div className={styles.box_third1}>
+              <LineChart chartData={userData}></LineChart>
+            </div>
+          </div>
         </div>
 
-        <div className={styles.box_third1}>
-          <PieChart chartData={userData}></PieChart>
+        <div className={styles.dashboard_dashbar}>
+          <div className={styles.box_third}>
+            <div className={styles.box_third1}>
+              <BubbleChart chartData={userData} />
+            </div>
+            <div className={styles.box_third1}>
+              <PieChart chartData={userData}></PieChart>
+            </div>
+          </div>
         </div>
-
-        {/* <div className={styles.box_third1}>
-          <BubbleChart chartData={userData}></BubbleChart>
-        </div> */}
       </div>
     </div>
   );

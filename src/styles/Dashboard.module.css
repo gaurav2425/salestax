@@ -12,7 +12,9 @@
 .dashboard_sidebar{
     /* flex: 0.20; */
     background-color: #4a154b;
+    background-color: blueviolet;
     min-width: 220px;
+    background-color: rgb(255, 238, 217);
     height: 100%;
     margin-top: 55px;
     display: flex;
