@@ -3,28 +3,67 @@ import styles from "../styles/Upload.module.css";
 import Papa from "papaparse";
 import xtype from "xtypejs";
 import { FileUploader } from "react-drag-drop-files";
+import DataTable from "./DataTable";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableCell from "@mui/material/TableCell";
+import axios from "axios";
+import TableContainer from "@mui/material/TableContainer";
+import Visual from "../pages/Visual";
+import BubbleChart from "../Chart/BubbleChart";
+import PieChart from "../Chart/PieChart";
+import LineChart from "../Chart/LineChart";
+import BarChart from "../Chart/BarChart";
+import Cookies from "universal-cookie";
+import { FileDataAction } from ".././actions/FileData";
+import { useSelector, useDispatch } from "react-redux";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
 function Upload() {
+  const MyFileData = useSelector((state) => state.FileDataReducer);
+  console.log("data From Reducer");
+  console.log(MyFileData);
+  console.log("data From Reducer");
+
+  const dispatch = useDispatch();
+
+  const cookies = new Cookies();
+  const mycookie = cookies.get("token");
   const [file, setFile] = useState();
   const [selected, setSelected] = useState(false);
   const [state, setState] = useState(1);
+  const [collectDatatypes, setCollectDataTypes] = useState();
 
+  const [tableRows, setTableRows] = useState([]);
   const [parsedData, setParsedData] = useState([]);
 
-  //State to store table Column name
-  const [tableRows, setTableRows] = useState([]);
-
-  //State to store the values
+  const [newData, setNewData] = useState({
+    labels: parsedData.map((data) => data.index),
+    datasets: [
+      {
+        label: "p_stnet",
+        data: parsedData.map((data) => data.p_stnet),
+        backgroundColor: [
+          "rgba(75,192,192,1)",
+          "#ecf0f1",
+          "#50AF95",
+          "#f3ba2f",
+          "#2a71d0",
+        ],
+        borderColor: "black",
+        borderWidth: 2,
+      },
+    ],
+  });
   const [values, setValues] = useState([]);
 
-  const handleChange1 = (file) => {
-    setFile(file);
-  };
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+    setSelected(true);
 
-  const changeHandler = (event) => {
-    // Passing file data (event.target.files[0]) to parse using Papa.parse
     Papa.parse(event.target.files[0], {
       header: true,
       skipEmptyLines: true,
@@ -40,31 +79,106 @@ function Upload() {
 
         // Parsed Data Response in array format
         setParsedData(results.data);
+        console.log("Parsed Data");
+        dispatch(
+          FileDataAction({
+            filedata: results.data,
+          })
+        );
+
+        console.log(results.data);
+        console.log("Parsed Data");
+
+        setNewData({
+          labels: results.data.map((data) => data.index),
+          datasets: [
+            {
+              label: "p_stnet",
+              data: results.data.map((data) => data.p_stnet),
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0",
+              ],
+              borderColor: "black",
+              borderWidth: 2,
+            },
+          ],
+        });
 
         // Filtered Column Names
         setTableRows(rowsArray[0]);
 
         // Filtered Values
         setValues(valuesArray);
-        setSelected(true);
       },
     });
-  };
+  }
 
-  const UploadFile = async () => {
-    fetch("http://192.168.15.15:5000/api/login", {
-      method: "PUT",
+  function handleSubmit(event) {
+    // event.preventDefault();
+    const url = "http://127.0.0.1:8000/upload_file/";
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("fileName", file.name);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+        Authorization: `${mycookie.token_type} ${mycookie.access_token}`,
+      },
+    };
+    axios.post(url, formData, config).then((response) => {
+      console.log(response.data.columns);
+      setCollectDataTypes(response.data.columns);
+      // console.log(collectDatatypes);
+    });
+  }
+
+  const SaveDataset = async () => {
+    fetch("http://127.0.0.1:8000/save_dataset/", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `${mycookie.token_type} ${mycookie.access_token}`,
       },
       body: JSON.stringify({
-        file: file,
+        primary: "index",
+        prediction_value: "p_stnet",
+        columns: collectDatatypes,
       }),
     })
       .then((res) => res.json())
-      .then(async (data) => {
+      .then((data) => {
         console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  };
+
+  const Predict = async () => {
+    fetch("http://127.0.0.1:8000/model/predict/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `${mycookie.token_type} ${mycookie.access_token}`,
+      },
+      body: JSON.stringify({
+        // primary: "index",
+        // prediction_value: "p_stnet",
+        key: collectDatatypes,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Predicted");
+        console.log(data);
+        console.log("Predicted");
       })
       .catch((err) => {
         console.log(err);
@@ -74,139 +188,147 @@ function Upload() {
 
   return (
     <div>
-      {state == 1 ? (
-        <div>
-          <div className={styles.upload_container}>
-            <img
-              src={require("../assets/upload.png")}
-              onClick={changeHandler}
-              // onClick={handleFileChange}
-            ></img>
-            <h1>Drop your files here</h1>
-            <h2>Max file size 12MB</h2>
-            {/* <div style={{ textAlign: "center" }}>
-              <div>
-                <input type="file" onChange={handleFileChange} />
-
-                <button onClick={handleUploadClick}>Upload</button>
-              </div>
-            </div> */}
-          </div>
-          {/* <FileUploader
-            handleChange={handleChange1}
-            name="file"
-            types={fileTypes}
-          /> */}
+      <form onSubmit={handleSubmit}>
+        {state == 1 ? (
           <div>
-            {/* File Uploader */}
-            <input
-              type="file"
-              name="file"
-              onChange={changeHandler}
-              accept=".csv"
-              style={{ display: "block", margin: "10px auto" }}
-            />
-            <br />
-            <br />
-            {/* Table */}
-          </div>
-
-          {selected ? (
-            <div className={styles.uploaded_file}>
-              <h1> {file && `${file.name} - ${file.type}`}</h1>
+            <div className={styles.upload_container}>
+              <img src={require("../assets/upload.png")}></img>
+              <h1>Drop your files here</h1>
+              <h2>Max file size 12MB</h2>
             </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
-      ) : (
-        <div>
-          {/* {tableRows.map((rows, index) => {
-            return (
-              <div className={styles.checkbox_main_container}>
-                <div className={styles.checkbox_container} key={index}>
-                  <h1>{rows}</h1>
-                  <input type="checkbox"></input>
-                </div>
+
+            <div>
+              {/* File Uploader */}
+              <input
+                type="file"
+                name="file"
+                onChange={handleChange}
+                // onChange={handleChange}
+                accept=".csv"
+                style={{ display: "block", margin: "10px auto" }}
+              />
+              <br />
+              <br />
+              {/* Table */}
+            </div>
+
+            {selected ? (
+              <div className={styles.uploaded_file}>
+                <h1> {file && `${file.name} - ${file.type}`}</h1>
               </div>
-            );
-          })} */}
-          <table>
-            <tr>
-              <th>Column</th>
-              <th>Parameter</th>
-              <th>Datatype</th>
-              <th>Select Total Revenue Column</th>
-            </tr>
+            ) : (
+              <div></div>
+            )}
+          </div>
+        ) : state == 2 ? (
+          <div>
+            <TableContainer component={Paper}>
+              <Table
+                sx={{ minWidth: 650 }}
+                size="small"
+                aria-label="a dense table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell style={{ width: 50 }}>Index</TableCell>
+                    <TableCell style={{ width: 130 }}>Columns</TableCell>
+                    <TableCell style={{ width: 100 }}>Datatype</TableCell>
+                    <TableCell style={{ width: 100 }}>
+                      Value to be predicted
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+              </Table>
+            </TableContainer>
+
             {tableRows.map((rows, index) => {
               return (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{rows}</td>
-                  <td>INT</td>
-                  <td>
-                    <input type="checkbox"></input>
-                  </td>
-                </tr>
+                <DataTable rows={rows} index={index} key={index}></DataTable>
               );
             })}
-          </table>
+            {/* <BubbleChart chartData={newData}></BubbleChart> */}
+            <div className={styles.dashboard_dashbar}>
+              <div className={styles.box_third}>
+                <div className={styles.box_third1}>
+                  <BarChart chartData={newData} />
+                </div>
+                <div className={styles.box_third1}>
+                  <LineChart chartData={newData}></LineChart>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div>Overview</div>
+        )}
 
-          {/* <div className={styles.checkbox_container}>
-            <h1>Sales_tax</h1>
-            <input type="checkbox"></input>
-          </div> */}
-          <table>
-            {/* <thead>
-              <tr>
-                {tableRows.map((rows, index) => {
-                  return <th key={index}>{rows}</th>;
-                })}
-              </tr>
-            </thead> */}
-            {/* <tbody>
-              {values.map((value, index) => {
-                return (
-                  <tr key={index}>
-                    {value.map((val, i) => {
-                      return (
-                        <td key={i}>
-                          {val} {`${xtype.type({ val })}`}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody> */}
-          </table>
-        </div>
-      )}
+        {selected ? (
+          <div className={styles.upload_container_buttons}>
+            {state == 1 ? (
+              <button
+                className={styles.upload_btn1}
+                onClick={() => {
+                  setState(1);
+                }}
+              >
+                Reset
+              </button>
+            ) : (
+              <></>
+            )}
+            {state == 1 ? (
+              <button
+                className={styles.upload_btn2}
+                onClick={() => {
+                  // UploadFile();
+                  // PostForm();
+                  // handleSubmit();
+                  handleSubmit();
+                  setState(2);
+                }}
+                type="submit"
+              >
+                Upload
+              </button>
+            ) : state == 2 ? (
+              <>
+                <button
+                  className={styles.upload_btn2}
+                  onClick={() => {
+                    setState(3);
+                  }}
+                >
+                  Next
+                </button>
 
-      {selected ? (
-        <div className={styles.upload_container_buttons}>
-          <button
-            className={styles.upload_btn1}
-            onClick={() => {
-              setState(1);
-            }}
-          >
-            Reset
-          </button>
-          <button
-            className={styles.upload_btn2}
-            onClick={() => {
-              setState(2);
-            }}
-          >
-            Next
-          </button>
-        </div>
-      ) : (
-        <div></div>
-      )}
+                <button
+                  className={styles.upload_btn2}
+                  onClick={() => {
+                    SaveDataset();
+                    setState(3);
+                  }}
+                >
+                  SaveDataset
+                </button>
+              </>
+            ) : (
+              <div>
+                <button
+                  className={styles.upload_btn2}
+                  onClick={() => {
+                    Predict();
+                  }}
+                >
+                  Predict
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
 
-      {/* <div className={styles.upload_container_buttons}>
+        {/* <div className={styles.upload_container_buttons}>
         <button
           className={styles.upload_btn1}
           onClick={() => {
@@ -224,35 +346,9 @@ function Upload() {
           Next
         </button>
       </div> */}
+      </form>
     </div>
   );
 }
 
 export default Upload;
-
-// const handleFileChange = (e) => {
-//   if (e.target.files) {
-//     setFile(e.target.files[0]);
-//     setFile(true);
-//   }
-// };
-
-// const handleUploadClick = () => {
-//   if (!file) {
-//     return;
-//   }
-
-//   // 👇 Uploading the file using the fetch API to the server
-//   fetch("https://httpbin.org/post", {
-//     method: "POST",
-//     body: file,
-//     // 👇 Set headers manually for single file upload
-//     headers: {
-//       "content-type": file.type,
-//       "content-length": `${file.size}`, // 👈 Headers need to be a string
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((data) => console.log(data))
-//     .catch((err) => console.error(err));
-// };

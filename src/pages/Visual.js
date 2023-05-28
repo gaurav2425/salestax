@@ -9,15 +9,23 @@ import LineChart from "../Chart/LineChart";
 import BubbleChart from "../Chart/BubbleChart";
 import PieChart from "../Chart/PieChart";
 import Navbar from "../components/Navbar";
-import { UserData } from "../Data";
+// import { UserData } from "../Data";
+import { FileDataAction } from "../actions/FileData";
+import { useSelector, useDispatch } from "react-redux";
 
 function Visual() {
-  const [userData, setUserData] = useState({
-    labels: UserData.map((data) => data.year),
+  const MyFileData = useSelector((state) => state.FileDataReducer);
+  console.log("data From Visual");
+  console.log(MyFileData.filedata);
+  // setParsedData()
+  console.log("data From Visual");
+
+  const [Data, setData] = useState({
+    labels: MyFileData.filedata.slice(0, 30).map((data) => data.index),
     datasets: [
       {
-        label: "Users Gained",
-        data: UserData.map((data) => data.userGain),
+        label: "p_stnet",
+        data: MyFileData.filedata.slice(0, 30).map((data) => data.p_stnet),
         backgroundColor: [
           "rgba(75,192,192,1)",
           "#ecf0f1",
@@ -40,24 +48,26 @@ function Visual() {
         <div className={styles.dashboard_sidebar}>
           <Sidebar></Sidebar>
         </div>
-        <div className={styles.dashboard_dashbar}>
-          <div className={styles.box_third}>
-            <div className={styles.box_third1}>
-              <BarChart chartData={userData} />
-            </div>
-            <div className={styles.box_third1}>
-              <LineChart chartData={userData}></LineChart>
+        <div style={{ marginLeft: 220 }}>
+          <div className={styles.dashboard_dashbar}>
+            <div className={styles.box_third}>
+              <div className={styles.box_third1}>
+                <BarChart chartData={Data} />
+              </div>
+              <div className={styles.box_third1}>
+                <LineChart chartData={Data}></LineChart>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.dashboard_dashbar}>
-          <div className={styles.box_third}>
-            <div className={styles.box_third1}>
-              <BubbleChart chartData={userData} />
-            </div>
-            <div className={styles.box_third1}>
-              <PieChart chartData={userData}></PieChart>
+          <div className={styles.dashboard_dashbar}>
+            <div className={styles.box_third}>
+              <div className={styles.box_third1}>
+                <BubbleChart chartData={Data} />
+              </div>
+              <div className={styles.box_third1}>
+                <PieChart chartData={Data}></PieChart>
+              </div>
             </div>
           </div>
         </div>

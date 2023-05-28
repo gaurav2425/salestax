@@ -4,7 +4,9 @@ import styles from "../../src/styles/Dashboard.module.css";
 import Sidebar from "../components/Sidebar";
 import Dashbar from "../components/Dashbar";
 import Navbar from "../components/Navbar";
+import Cookies from "universal-cookie";
 function Dashboard() {
+  const cookies = new Cookies();
   const [parsedData, setParsedData] = useState([]);
 
   //State to store table Column name
@@ -37,6 +39,8 @@ function Dashboard() {
       },
     });
   };
+
+  const mycookie = cookies.get("token");
 
   return (
     // <div>

@@ -14,11 +14,14 @@ function Navbar() {
       <div className={styles.container_right}>
         <NotificationsNoneOutlinedIcon
           size={55}
-          style={{ width: 30, height: 30, color: "#000000" }}
+          style={{ width: 30, height: 30, color: "#FFFFFF" }}
           className={styles.notification_icon}
         ></NotificationsNoneOutlinedIcon>
         <div className={styles.profile_container}>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1tcsOlJgKH21rAH85atd6DHtLJh8-8v2wmuk4-HIp&s"></img>
+          <img
+            src="
+https://robohash.org/tax"
+          ></img>
         </div>
       </div>
     </div>

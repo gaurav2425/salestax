@@ -1,25 +1,46 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import styles from "../styles/Login.module.css";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const cookies = new Cookies();
+
+  const navigate = useNavigate();
+
+  const ValidLogin = () => {
+    navigate("/dashboard");
+  };
+
   const Login = async () => {
-    fetch("http://192.168.15.15:5000/api/login", {
-      method: "PUT",
+    fetch("http://127.0.0.1:8000/login/", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
       body: JSON.stringify({
-        email: email,
+        username: username,
         password: password,
       }),
     })
       .then((res) => res.json())
-      .then(async (data) => {
+      .then((data) => {
         console.log(data);
+        alert(data.valid);
+        if (data.valid === "true") {
+          alert("valid");
+          cookies.set("token", data, { path: "/" });
+          // console.log(cookies.get('myCat'));
+          ValidLogin();
+        }
+        if (data.valid == "false") {
+          alert("Invalid");
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -35,9 +56,9 @@ function Login() {
         </h1>
         <input
           placeholder="Enter your Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           className={styles.email_input}
         ></input>
         <input
@@ -51,7 +72,11 @@ function Login() {
           <h1 className={styles.forget_password_txt}>Forgot Password?</h1>
         </Link>
 
-        <Link to="/dashboard" style={{ textDecoration: "none" }}>
+        <Link
+          // to="/dashboard"
+          style={{ textDecoration: "none" }}
+          onClick={Login}
+        >
           <div className={styles.login_btn}>
             <h1 className={styles.login_btn_txt}>Login</h1>
           </div>

@@ -1,0 +1,8 @@
+.select{
+    padding: 7px;
+    border-radius: 0px;
+}
+
+input[type="checkbox"][readonly] {
+    pointer-events: none;
+  }

@@ -15,7 +15,7 @@
     background-color: #4a154b;
     background-color: blueviolet;
     min-width: 220px;
-    background-color: rgb(255, 238, 217);
+    background-color: #161616;
     height: 100%;
     margin-top: 55px;
     display: flex;
@@ -32,7 +32,9 @@
     /* background: saddlebrown; */
     /* overflow-y: auto; */
     display: flex;
-    margin-left: 220px;
+    /* margin-left: 220px; */
+    justify-content: center;
+    align-items: center;
     margin-top: 55px;
     width: 100%;
     flex-direction: column;

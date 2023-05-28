@@ -27,18 +27,20 @@
     font-size: 17px;
     margin-left: 20px;
     color: rgb(0, 0, 0);
+    color: white;
     font-family: 'Poppins', sans-serif;
 }
 
 .home_icon{
     font-size: 35px;
-    color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);  color: white;
 }
 
 
 .recent_icon{
     font-size: 35px;
     color: rgb(0, 0, 0);
+    color: white;
 }
 
 .section:hover{

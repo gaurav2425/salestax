@@ -32,18 +32,18 @@ function Overview() {
         <div className={styles.box_first1}>
           <h1>Predicted Sales for</h1>
           <p>prediction for Aug 2021</p>
-          <h2>$1,12,258</h2>
+          <h2>+$1,12,258</h2>
         </div>
         <div className={styles.box_first1}>
           <h1>Percentage Change</h1>
           <p>prediction for Aug 2021</p>
-          <h2>10%</h2>
+          <h2>+10%</h2>
         </div>
 
         <div className={styles.box_first1}>
           <h1>Previous Prediction</h1>
           <p>prediction for Aug 2021</p>
-          <h2>$1,05,658</h2>
+          <h2>+$1,05,658</h2>
         </div>
       </div>
 

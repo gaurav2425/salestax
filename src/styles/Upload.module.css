@@ -41,6 +41,7 @@
 
 .upload_container_buttons{
     margin-top: 10px;
+    padding-bottom: 50px;
 }
 .upload_btn1{
     padding: 5px;
@@ -101,3 +102,41 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
+
+
+  .dashboard_dashbar{
+    /* flex: 0.85; */
+    background-color: rgb(250, 251, 251);
+    height: 100%;
+    /* background: saddlebrown; */
+    /* overflow-y: auto; */
+    display: flex;
+    /* margin-left: 220px; */
+    margin-top: 55px;
+    width: 100%;
+    flex-direction: column;
+}
+
+.dashboard_section2{
+    display: flex;
+    flex-direction: column;
+}
+
+.box_third1{
+    width: 600px;
+    height: 300px;
+    padding: 10px;
+    background: rgb(232, 232, 232);
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* background: firebrick; */
+    /* width: 100%; */
+    flex-wrap: nowrap;
+}
+.box_third{
+    display: flex;
+    flex-direction: row;
+}
